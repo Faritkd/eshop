@@ -10,7 +10,7 @@ class ContactUs(models.Model):
     message = models.TextField(verbose_name='متن پیام')
     created_date = models.DateTimeField(verbose_name='تاریخ ایجاد پیام', auto_now_add=True)
     response = models.TextField(verbose_name='پاسخ ادمین', null=True, blank=True)
-    is_read_by_admin = models.BooleanField(verbose_name='خوانده شده توسط ادمین')
+    is_read_by_admin = models.BooleanField(verbose_name='خوانده شده توسط ادمین',default=False)
 
     class Meta:
         verbose_name = 'تماس با ما'
