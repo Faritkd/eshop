@@ -38,7 +38,7 @@
 
                 <div class="col-sm-4" style="text-align: left;">
                     <div class="logo">
-                        <a href="index.html"><img src="/static/images/home/logo.png" alt="Logo"
+                        <a href="{% url 'home_page' %}"><img src="/static/images/home/logo.png" alt="Logo"
                                                   style="text-align: center;"/></a>
                     </div>
                 </div>
@@ -80,10 +80,10 @@
                     </div>
                     <div class="mainmenu pull-right">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html" class="active">خـانه</a></li>
+                            <li><a href="{% url 'home_page' %}"  class="active">خـانه</a></li>
                             <li class="dropdown"><a href="#">فروشگـاه<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">محصولات</a></li>
+                                    <li><a href="{% url 'product-list' %}">محصولات</a></li>
                                     <li><a href="product-details.html">جزئیات محصولات</a></li>
                                     <li><a href="checkout.html">پرداخت</a></li>
                                     <li><a href="cart.html">سبـد خریـد</a></li>
