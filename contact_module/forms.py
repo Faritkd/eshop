@@ -43,4 +43,4 @@ class ContactUsModelForm(forms.ModelForm):
 
 
 class ProfileForm(forms.Form):
-    user_image = forms.FileField()
+    user_image = forms.ImageField()
