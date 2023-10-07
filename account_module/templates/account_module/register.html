@@ -11,8 +11,6 @@
                         <form method="post" action="{% url 'register_page' %}">
                             {% csrf_token %}
 
-                            {#{{ register_form }}#}
-
                             {{ register_form.email.label_tag }}
                             {{ register_form.email }}
                             {{ register_form.email.errors }}
@@ -23,11 +21,6 @@
                             {{ register_form.confirm_password }}
                             {{ register_form.confirm_password.errors }}
 
-                            {% comment %}{{ register_form.errors }}{% endcomment %}
-
-                            {% comment %}<input type="text" placeholder="نام کاربـری">
-                            <input type="email" placeholder="آدرس ایمیـل">
-                            <input type="password" placeholder="رمـز عبـور">{% endcomment %}
                             <button type="submit" class="btn btn-default">ثبت نام</button>
                         </form>
                     </div><!--/sign up form-->
