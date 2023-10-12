@@ -37,3 +37,22 @@ class LoginForm(forms.Form):
         label='رمز عبور ',
         widget=forms.PasswordInput(),
     )
+
+
+class ForgetPasswordForm(forms.Form):
+    email = forms.EmailField(
+        label='ایمیل',
+        widget=forms.EmailInput(),
+        validators=[validators.MaxLengthValidator(100), validators.EmailValidator]
+    )
+
+
+class ResetPasswordForm(forms.Form):
+    password = forms.CharField(
+        label='رمز عبور ',
+        widget=forms.PasswordInput(),
+    )
+    confirm_password = forms.CharField(
+        label='تایید رمز عبور ',
+        widget=forms.PasswordInput(),
+    )
