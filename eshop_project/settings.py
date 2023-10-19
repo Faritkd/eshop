@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'contact_module.apps.ContactModuleConfig',
     'site_module.apps.SiteModuleConfig',
     'article_module.apps.ArticleModuleConfig',
+    'sorl.thumbnail',
     'django_render_partial',
 ]
 
