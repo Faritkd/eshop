@@ -16,6 +16,7 @@ class HomeView(TemplateView):
         context ['sliders'] = sliders
         return context
 
+
 def site_header_component(request):
     setting = SiteSetting.objects.filter(is_main_setting=True).first()
     context = {'site_setting': setting}
