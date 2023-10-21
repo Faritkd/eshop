@@ -98,12 +98,12 @@ class LoginView(View):
 
 class ForgetPasswordView(View):
     def get(self, request: HttpRequest):
-        forget_pass_form = ForgotPasswordForm()
+        forget_pass_form = ForgetPasswordForm()
         context = {'forget_pass_form': forget_pass_form}
-        return render(request, 'account_module/forgot_password.html', context)
+        return render(request, 'account_module/forget_password.html', context)
 
     def post(self, request: HttpRequest):
-        forget_pass_form = ForgotPasswordForm(request.POST)
+        forget_pass_form = ForgetPasswordForm(request.POST)
         if forget_pass_form.is_valid():
             user_email = forget_pass_form.cleaned_data.get('email')
             user: User = User.objects.filter(email__iexact=user_email).first()
@@ -112,7 +112,7 @@ class ForgetPasswordView(View):
                 return redirect(reverse('home_page'))
 
         context = {'forget_pass_form': forget_pass_form}
-        return render(request, 'account_module/forgot_password.html', context)
+        return render(request, 'account_module/forget_password.html', context)
 
 
 class ResetPasswordView(View):
