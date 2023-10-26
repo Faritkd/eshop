@@ -6,7 +6,7 @@ from django.utils.crypto import get_random_string
 from django.http import Http404, HttpRequest
 from django.contrib.auth import login, logout
 from utils.email_service import send_email
-from account_module.forms import RegisterForm, LoginForm, ForgetPasswordForm, ResetPasswordForm
+from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
 
 
 class RegisterView(View):
@@ -98,12 +98,12 @@ class LoginView(View):
 
 class ForgetPasswordView(View):
     def get(self, request: HttpRequest):
-        forget_pass_form = ForgetPasswordForm()
+        forget_pass_form = ForgotPasswordForm()
         context = {'forget_pass_form': forget_pass_form}
-        return render(request, 'account_module/forget_password.html', context)
+        return render(request, 'account_module/forgot_password.html', context)
 
     def post(self, request: HttpRequest):
-        forget_pass_form = ForgetPasswordForm(request.POST)
+        forget_pass_form = ForgotPasswordForm(request.POST)
         if forget_pass_form.is_valid():
             user_email = forget_pass_form.cleaned_data.get('email')
             user: User = User.objects.filter(email__iexact=user_email).first()
@@ -112,12 +112,12 @@ class ForgetPasswordView(View):
                 return redirect(reverse('home_page'))
 
         context = {'forget_pass_form': forget_pass_form}
-        return render(request, 'account_module/forget_password.html', context)
+        return render(request, 'account_module/forgot_password.html', context)
 
 
 class ResetPasswordView(View):
-    def get(self, request: HttpRequest, active_code):
-        user: User = User.objects.filter(email_activate_code__iexact=active_code).first()
+    def get(self, request: HttpRequest, activate_code):
+        user: User = User.objects.filter(email_activate_code__iexact=activate_code).first()
         if user is None:
             return redirect(reverse('login_page'))
 
@@ -129,9 +129,9 @@ class ResetPasswordView(View):
         }
         return render(request, 'account_module/reset_password.html', context)
 
-    def post(self, request: HttpRequest, active_code):
+    def post(self, request: HttpRequest, activate_code):
         reset_pass_form = ResetPasswordForm(request.POST)
-        user: User = User.objects.filter(email_activate_code__iexact=active_code).first()
+        user: User = User.objects.filter(email_activate_code__iexact=activate_code).first()
         if reset_pass_form.is_valid():
             if user is None:
                 return redirect(reverse('login_page'))

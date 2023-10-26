@@ -39,7 +39,7 @@ class LoginForm(forms.Form):
     )
 
 
-class ForgetPasswordForm(forms.Form):
+class ForgotPasswordForm(forms.Form):
     email = forms.EmailField(
         label='ایمیل',
         widget=forms.EmailInput(),
