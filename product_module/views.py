@@ -1,8 +1,7 @@
-from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpRequest
+from django.shortcuts import render
+
 from .models import Product, ProductCategory
-from django.http import Http404
-from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
 
 
@@ -14,9 +13,11 @@ class ProductListView(ListView):
     paginate_by = 3
     
     def get_queryset(self):
-        base_query = super().get_queryset()
-        data = base_query.filter(is_active=True)
-        return data
+        query = super().get_queryset()
+        category_name = self.kwargs.get('cat')
+        if category_name is not None:
+            query = query.filter(category__url_title__iexact=category_name)
+        return query
 
 
 class ProductDetailView(DetailView):
@@ -24,5 +25,9 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-
-
+def product_categories_component(request: HttpRequest):
+    product_categories = ProductCategory.objects.filter(is_active=True, is_delete=False)
+    context = {
+        'categories': product_categories
+    }
+    return render(request, 'product_module/components/product_categories_component.html', context)
