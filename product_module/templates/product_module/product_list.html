@@ -1,6 +1,7 @@
 {% extends 'shared/_layout.html' %}
 {% load thumbnail %}
 {% load render_partial %}
+{% load static %}
 
 {% block title %}لیست محصولات{% endblock %}
 
@@ -61,10 +62,14 @@
                                 <input type="hidden" name="end_price" id="end_price" value="{{ end_price }}">
                             </form>
                             <button class="btn btn-success btn-block" onclick="filterProducts()">فیلتر</button>
-                        </div>
-
                         <div class="shipping text-center"><!--shipping-->
-                            <img src="/static/images/home/shipping.jpg" alt="">
+                            {% for banner in banners %}
+                                <a href="{{ banner.url }}">
+                                    <img src="{{ banner.image.url}}" alt="">
+                                </a>
+                            {% endfor %}
+                            <br>
+                            <br>
                         </div><!--/shipping-->
 
                     </div>

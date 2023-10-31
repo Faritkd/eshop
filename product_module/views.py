@@ -2,6 +2,7 @@ from django.db.models import Count
 from django.http import HttpRequest
 from django.shortcuts import render
 
+from site_module.models import SiteBanner
 from .models import Product, ProductCategory, ProductBrand
 from django.views.generic import ListView, DetailView
 
@@ -21,10 +22,11 @@ class ProductListView(ListView):
         context['db_max_price'] = db_max_price
         context['start_price'] = self.request.GET.get('start_price') or 0
         context['end_price'] = self.request.GET.get('end_price') or db_max_price
+        context['banners'] = SiteBanner.objects.filter(is_active=True, position__iexact=SiteBanner.SiteBannerPosition.product_list)
         return context
 
     def get_queryset(self):
-        query = super(ProductListView, self).get_queryset()
+        query = super().get_queryset()
         category_name = self.kwargs.get('cat')
         brand_name = self.kwargs.get('brand')
         request: HttpRequest = self.request
