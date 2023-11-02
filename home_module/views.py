@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
+from product_module.models import Product
 from site_module.models import SiteSetting, FooterLinkBox, Slider
+from utils.convertors import group_list
 
 
 # Create your views here.
@@ -13,7 +15,9 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         sliders = Slider.objects.filter(is_active=True)
-        context ['sliders'] = sliders
+        context['sliders'] = sliders
+        latest_products = Product.objects.filter(is_active=True, is_delete=False).order_by('-id')
+        context['latest_products'] = group_list(latest_products)
         return context
 
 
