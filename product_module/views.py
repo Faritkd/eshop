@@ -3,8 +3,9 @@ from django.http import HttpRequest
 from django.shortcuts import render
 
 from site_module.models import SiteBanner
+from utils.convertors import group_list
 from utils.http_service import get_client_ip
-from .models import Product, ProductCategory, ProductBrand, ProductVisit
+from .models import Product, ProductCategory, ProductBrand, ProductVisit, ProductGallery
 from django.views.generic import ListView, DetailView
 
 
@@ -55,6 +56,9 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         loaded_product = self.object
         request = self.request
+        galleries = list(ProductGallery.objects.filter(product_id=loaded_product).all())
+        galleries.insert(0, loaded_product)
+        context['product_galleries_group'] = group_list(galleries, 3)
         user_ip = get_client_ip(self.request)
         user_id = None
         if self.request.user.is_authenticated:
