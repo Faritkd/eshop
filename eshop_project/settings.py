@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'contact_module.apps.ContactModuleConfig',
     'site_module.apps.SiteModuleConfig',
     'article_module.apps.ArticleModuleConfig',
+    'order_module.apps.OrderModuleConfig',
     'user_panel_module.apps.UserPanelModuleConfig',
     'polls.apps.PollsConfig',
     'sorl.thumbnail',
