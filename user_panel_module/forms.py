@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from account_module.models import User
 
 
-class EditeProfileModelForm(forms.ModelForm):
+class EditProfileModelForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'avatar', 'address', 'about_user']
