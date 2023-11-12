@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from account_module.models import User
 from order_module.models import Order, OrderDetail
 from .forms import EditProfileModelForm, ChangePasswordForm
@@ -65,6 +65,18 @@ class ChangePasswordPage(View):
             'form': form
         }
         return render(request, 'user_panel_module/change_password_page.html', context)
+
+
+@ method_decorator(login_required, name='dispatch')
+class MyShopping(ListView):
+    model = Order
+    template_name = 'user_panel_module/user_shopping.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        request: HttpRequest = self.request
+        queryset = queryset.filter(is_paid=True, user_id=request.user.id)
+        return queryset
 
 
 @ login_required
@@ -153,3 +165,11 @@ def change_order_detail_count(request: HttpRequest):
         'status': 'success',
         'body': render_to_string('user_panel_module/user_basket_content.html', context)
     })
+
+
+@login_required
+def my_shopping_detail(request: HttpRequest, order_id):
+    order = Order.objects.prefetch_related('orderdetail_set').filter(id=order_id, user_id=request.user.id).first()
+    if order is None:
+        raise Http404('Not found')
+    return render(request, 'user_panel_module/user_shopping_detail.html', {'order': order})
