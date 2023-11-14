@@ -1,3 +1,5 @@
+{% load render_partial %}
+{% load poll_extras %}
 <div class="col-sm-4">
     <div class="product-image-wrapper">
         <div class="single-products">
@@ -9,23 +11,23 @@
                 {% endif %}
                 <h2>{{ product.price }} تومان</h2>
                 <p>{{ product.title }}</p>
-                <a href="#" class="btn btn-default add-to-cart"><i
-                        class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+{#                <span>#}
+{#                    <label>تعداد :</label>#}
+{#                    <input type="number" min="1" value="1"#}
+{#                           class="search_box" id="product-count">#}
+{#                    <button onclick="addProductToOrder({{ product.id }})"#}
+{#                            class="btn btn-fefault cart">#}
+{#                        <i class="fa fa-shopping-cart"></i>#}
+{#                        افزودن به سبد خرید#}
+{#                    </button>#}
+{#                </span>#}
             </div>
-            <div class="product-overlay">
-                <div class="overlay-content">
-                    <h2>{{ product.price }} تومان</h2>
-                    <p>{{ product.title }}</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i
-                            class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
-                </div>
-            </div>
+
         </div>
         <div class="choose">
             <ul class="nav nav-pills nav-justified">
                 <li><a href="{{ product.get_absolute_url }}"><i class="fa fa-plus-square"></i>مشاهده
                     جزییات</a></li>
-                <li><a href=""><i class="fa fa-plus-square"></i>مقایسه</a></li>
             </ul>
         </div>
     </div>
